@@ -1,10 +1,26 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_pdfview/flutter_pdfview.dart';
+import 'package:syncfusion_flutter_pdfviewer/pdfviewer.dart';
+import 'package:http/http.dart' as http;
 
-class PDFPage extends StatelessWidget {
-  final String pdfPath;
+void main() {
+  runApp(PDFViewerScreen());
+}
 
-  PDFPage({required this.pdfPath});
+class PDFViewerScreen extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      title: 'PDF Viewer',
+      theme: ThemeData(
+        primarySwatch: Colors.blue,
+      ),
+      home: HomeScreen(),
+    );
+  }
+}
+
+class HomeScreen extends StatelessWidget {
+  final String apiUrl = 'http://127.0.0.1:8000/api/auth/dataEbook';
 
   @override
   Widget build(BuildContext context) {
@@ -12,77 +28,95 @@ class PDFPage extends StatelessWidget {
       appBar: AppBar(
         title: Text('PDF Viewer'),
       ),
-      body: GestureDetector(
-        onTap: () {
-          Navigator.push(
-            context,
-            MaterialPageRoute(
-              builder: (context) => PDFViewerPage(pdfPath: pdfPath),
-              fullscreenDialog: true,
-            ),
-          );
-        },
-        child: Center(
-          child: Text('Klik untuk membuka PDF'),
+      body: Center(
+        child: ElevatedButton(
+          child: Text('View PDF'),
+          onPressed: () => fetchPdf(context),
         ),
       ),
     );
   }
-}
 
-class PDFViewerPage extends StatefulWidget {
-  final String pdfPath;
+  void fetchPdf(BuildContext context) async {
+    final response = await http.get(Uri.parse(apiUrl));
+    final pdfUrl = response.body;
 
-  PDFViewerPage({required this.pdfPath});
-
-  @override
-  _PDFViewerPageState createState() => _PDFViewerPageState();
-}
-
-class _PDFViewerPageState extends State<PDFViewerPage>
-    with SingleTickerProviderStateMixin {
-  late AnimationController _animationController;
-  late Animation<double> _animation;
-
-  @override
-  void initState() {
-    super.initState();
-    _animationController = AnimationController(
-      duration: Duration(milliseconds: 500),
-      vsync: this,
-    );
-    _animation = Tween<double>(begin: 0, end: 1).animate(
-      CurvedAnimation(
-        parent: _animationController,
-        curve: Curves.easeInOut,
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => PdfScreen(pdfUrl: pdfUrl),
       ),
     );
-    _animationController.forward();
   }
+}
 
-  @override
-  void dispose() {
-    _animationController.dispose();
-    super.dispose();
-  }
+class PdfScreen extends StatelessWidget {
+  final String pdfUrl;
+
+  PdfScreen({required this.pdfUrl});
 
   @override
   Widget build(BuildContext context) {
-    return AnimatedBuilder(
-      animation: _animation,
-      builder: (context, child) {
-        return Scaffold(
-          appBar: AppBar(
-            title: Text('PDF Viewer'),
-          ),
-          body: Opacity(
-            opacity: _animation.value,
-            child: PDFView(
-              filePath: widget.pdfPath,
-            ),
-          ),
-        );
-      },
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('PDF Viewer'),
+      ),
+      body: SfPdfViewer.network(
+        pdfUrl,
+      ),
     );
   }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+// import 'package:flutter/material.dart';
+// import 'package:shared_preferences/shared_preferences.dart';
+// import 'package:syncfusion_flutter_pdfviewer/pdfviewer.dart';
+//
+// class PDFViewerScreen extends StatefulWidget {
+//   @override
+//   _PDFViewerScreenState createState() => _PDFViewerScreenState();
+// }
+//
+// class _PDFViewerScreenState extends State<PDFViewerScreen> {
+//   String pdfUrl = '';
+//
+//   @override
+//   void initState() {
+//     _getPDFUrl();
+//     super.initState();
+//   }
+//
+//   Future<void> _getPDFUrl() async {
+//     SharedPreferences prefs = await SharedPreferences.getInstance();
+//     String? url = await prefs.getString('link');
+//
+//     setState(() {
+//       pdfUrl = url!;
+//       print(pdfUrl);
+//     });
+//   }
+//
+//   @override
+//   Widget build(BuildContext context) {
+//     return Scaffold(
+//       appBar: AppBar(
+//         title: Text('PDF Viewer'),
+//       ),
+//       body: SfPdfViewer.network(
+//           'http://127.0.0.1:8000' + pdfUrl,
+//       ),
+//     );
+//   }
+// }

@@ -2,6 +2,7 @@ import 'package:myflutterapp/tampilanAwal/landing_page/ColorsSys.dart';
 import 'package:myflutterapp/tampilanAwal/landing_page/Strings.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:myflutterapp/tampilanAwal/setelahSplashScreen.dart';
 
 void main() {
   runApp(MaterialApp(
@@ -21,9 +22,7 @@ class _LandingPageState extends State<LandingPage> {
 
   @override
   void initState() {
-    _pageController = PageController(
-        initialPage: 0
-    );
+    _pageController = PageController(initialPage: 0);
     super.initState();
   }
 
@@ -43,11 +42,23 @@ class _LandingPageState extends State<LandingPage> {
         actions: <Widget>[
           Padding(
             padding: EdgeInsets.only(right: 20, top: 20),
-            child: Text('Skip', style: TextStyle(
-                color: ColorSys.gray,
-                fontSize: 18,
-                fontWeight: FontWeight.w400
-            ),),
+            child: GestureDetector(
+              onTap: () {
+                // Navigasi ke halaman login
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => TampilanAwal()),
+                );
+              },
+              child: Text(
+                'Skip',
+                style: TextStyle(
+                    color: ColorSys.gray,
+                    fontSize: 18,
+                    fontWeight: FontWeight.w400,
+                ),
+              ),
+            ),
           )
         ],
       ),
@@ -65,21 +76,21 @@ class _LandingPageState extends State<LandingPage> {
               makePage(
                   image: 'assets/landingPage/gambar1.jpg',
                   title: Strings.stepOneTitle,
-                  content: Strings.stepOneContent
-              ),
+                  content: Strings.stepOneContent),
               makePage(
                   reverse: true,
                   image: 'assets/landingPage/gambar2.jpg',
                   title: Strings.stepTwoTitle,
-                  content: Strings.stepTwoContent
-              ),
+                  content: Strings.stepTwoContent),
               makePage(
-                  image: 'assets/landingPage/gambar1.jpg',
-                  title: Strings.stepThreeTitle,
-                  content: Strings.stepThreeContent,
+                image: 'assets/landingPage/gambar3.jpg',
+                title: Strings.stepThreeTitle,
+                content: Strings.stepThreeContent,
+                isLast: true, // Tandai halaman terakhir
               ),
             ],
           ),
+
           Container(
             margin: EdgeInsets.only(bottom: 60),
             child: Row(
@@ -92,43 +103,81 @@ class _LandingPageState extends State<LandingPage> {
     );
   }
 
-  Widget makePage({image, title, content, reverse = false}) {
+  Widget makePage({image, title, content, reverse = false, isLast = false}) {
     return Container(
       padding: EdgeInsets.only(left: 50, right: 50, bottom: 60),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
-          !reverse ?
-          Column(
+          !reverse
+              ? Column(
             children: <Widget>[
               Padding(
                 padding: EdgeInsets.symmetric(horizontal: 20),
                 child: Image.asset(image),
               ),
-              SizedBox(height: 30,),
+              SizedBox(
+                height: 30,
+              ),
             ],
-          ) : SizedBox(),
-          Text(title, style: TextStyle(
-              color: ColorSys.primary,
-              fontSize: 30,
-              fontWeight: FontWeight.bold
-          ),),
-          SizedBox(height: 20,),
-          Text(content, textAlign: TextAlign.center, style: TextStyle(
-              color: ColorSys.gray,
-              fontSize: 20,
-              fontWeight: FontWeight.w400
-          ),),
-          reverse ?
-          Column(
+          )
+              : SizedBox(),
+          Text(
+            title,
+            style: TextStyle(
+                color: ColorSys.primary,
+                fontSize: 30,
+                fontWeight: FontWeight.bold),
+          ),
+          SizedBox(
+            height: 20,
+          ),
+          Text(
+            content,
+            textAlign: TextAlign.center,
+            style: TextStyle(
+                color: ColorSys.gray,
+                fontSize: 20,
+                fontWeight: FontWeight.w400),
+          ),
+          reverse
+              ? Column(
             children: <Widget>[
-              SizedBox(height: 30,),
+              SizedBox(
+                height: 30,
+              ),
               Padding(
                 padding: EdgeInsets.symmetric(horizontal: 20),
                 child: Image.asset(image),
               ),
             ],
-          ) : SizedBox(),
+          )
+              : SizedBox(height: 180,),
+          if (isLast)
+            ElevatedButton(
+              onPressed: () {
+                // Navigasi ke halaman login
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => TampilanAwal()),
+                );
+              },
+              child: Text(
+                'Get Started',
+                style: TextStyle(
+                  fontSize: 18,
+                  fontWeight: FontWeight.w400,
+                ),
+              ),
+              style: ElevatedButton.styleFrom(
+                primary: Colors.blue, // Ubah warna latar belakang sesuai kebutuhan
+                onPrimary: Colors.white, // Ubah warna teks sesuai kebutuhan
+                padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(10),
+                ),
+              ),
+            ),
         ],
       ),
     );
@@ -141,15 +190,13 @@ class _LandingPageState extends State<LandingPage> {
       width: isActive ? 30 : 6,
       margin: EdgeInsets.only(right: 5),
       decoration: BoxDecoration(
-          color: ColorSys.secoundry,
-          borderRadius: BorderRadius.circular(5)
-      ),
+          color: ColorSys.secoundry, borderRadius: BorderRadius.circular(5)),
     );
   }
 
   List<Widget> _buildIndicator() {
     List<Widget> indicators = [];
-    for (int i = 0; i<3; i++) {
+    for (int i = 0; i < 3; i++) {
       if (currentIndex == i) {
         indicators.add(_indicator(true));
       } else {

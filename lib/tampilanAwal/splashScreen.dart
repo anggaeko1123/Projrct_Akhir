@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
+import 'package:myflutterapp/tampilanAwal/landing_page/landingPage.dart';
 import 'package:myflutterapp/tampilanAwal/setelahSplashScreen.dart';
 
 // import 'package:myflutterapp/home/home.dart';
@@ -25,7 +26,8 @@ class _SplashScreenPageState extends State<SplashScreenPage> {
     return Timer(durasi, (){
       Navigator.of(context).pushReplacement(
           MaterialPageRoute(builder: (_){
-            return TampilanAwal();
+            return LandingPage();
+            // return TampilanAwal();
           })
       );
     });

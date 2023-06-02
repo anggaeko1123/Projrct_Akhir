@@ -16,6 +16,11 @@ public final class GeneratedPluginRegistrant {
   private static final String TAG = "GeneratedPluginRegistrant";
   public static void registerWith(@NonNull FlutterEngine flutterEngine) {
     try {
+      flutterEngine.getPlugins().add(new br.com.glidersi.epubviewer2.epubviewer2.Epubviewer2Plugin());
+    } catch(Exception e) {
+      Log.e(TAG, "Error registering plugin epubviewer2, br.com.glidersi.epubviewer2.epubviewer2.Epubviewer2Plugin", e);
+    }
+    try {
       flutterEngine.getPlugins().add(new io.endigo.plugins.pdfviewflutter.PDFViewFlutterPlugin());
     } catch(Exception e) {
       Log.e(TAG, "Error registering plugin flutter_pdfview, io.endigo.plugins.pdfviewflutter.PDFViewFlutterPlugin", e);

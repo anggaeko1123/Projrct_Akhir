@@ -28,6 +28,7 @@ dependencies:
 
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
+  dio:
   cupertino_icons: ^1.0.2
   http: ^0.13.5
   shared_preferences: ^2.0.15
@@ -40,12 +41,14 @@ dependencies:
   json_model: ^1.0.0
   json_serializable: ^6.3.1
   mysql1: ^0.20.0
-  flutter_page_transition: ^0.1.6
   flutter_pdfview: ^1.2.2
-  carousel_slider: ^4.0.0
+  carousel_slider: ^4.2.1
   flutter_signin_button: ^2.0.0
   easy_search_bar: ^2.5.0
   flutter_spinkit: ^5.2.0
+#  advance_pdf_viewer_fork: ^2.0.0
+  epubviewer2: ^0.0.4
+  flutter_staggered_grid_view: ^0.4.0
 
 dev_dependencies:
   flutter_test:
@@ -107,6 +110,8 @@ flutter:
     - assets/pdf/03-umar-bin-khattab.pdf
     - assets/pdf/kehidupan-rahasia-nabi-muhammad-aa-ahmed3.pdf
     - assets/pdf/riwayat-hidup-baginda-nabi-besar-muhammad-rasulullah-saw.pdf
+  # epub
+    - assets/epub/Jejak-Islam-dalam-Manuskrip-di-Bali_CEKLIST.epub
   #   - images/a_dot_burr.jpeg
   #   - images/a_dot_ham.jpeg
 

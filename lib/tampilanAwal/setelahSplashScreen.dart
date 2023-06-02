@@ -6,6 +6,9 @@ import 'package:myflutterapp/loginRegister/nyoba/registerNew.dart';
 import 'package:myflutterapp/pdfView/flutter_pdfview.dart';
 import 'package:myflutterapp/pdfView/pdf_page_transition.dart';
 import 'package:myflutterapp/tampilanAwal/landing_page/landingPage.dart';
+import 'package:myflutterapp/tampilanAwal/premium.dart';
+import 'package:myflutterapp/tampilanAwal/tampilanPremium.dart';
+import 'package:myflutterapp/tampilanUser/nyobaTampilan.dart';
 import '../loginRegister/nyoba/login.dart';
 import '../loginRegister/nyoba/loginPage.dart';
 import '../loginRegister/nyoba/registerPage.dart';
@@ -97,27 +100,50 @@ class TampilanAwal extends StatelessWidget {
                   ),
                 ),
 
-                // MaterialButton(
-                //   minWidth: double.infinity,
-                //   height: 60,
-                //   onPressed: () {
-                //     Navigator.push(
-                //         context,
-                //         MaterialPageRoute(
-                //             builder: (context) => BottomNavBar())
-                //     );
-                //   },
-                //   color: Colors.red[400],
-                //   shape: RoundedRectangleBorder(
-                //       borderRadius: BorderRadius.circular(40)),
-                //   child: Text(
-                //     "Landing Page",
-                //     style: TextStyle(
-                //         fontWeight: FontWeight.w600,
-                //         fontSize: 16,
-                //         color: Colors.white),
-                //   ),
-                // ),
+                MaterialButton(
+                  minWidth: double.infinity,
+                  height: 60,
+                  onPressed: () {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => TampilanApi())
+                    );
+                  },
+                  color: Colors.red,
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(40)),
+                  child: Text(
+                    "p",
+                    style: TextStyle(
+                        fontWeight: FontWeight.w600,
+                        fontSize: 16,
+                        color: Colors.white),
+                  ),
+                ),
+
+                MaterialButton(
+                  minWidth: double.infinity,
+                  height: 60,
+                  onPressed: () {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => TampilanPremium())
+                    );
+                  },
+                  color: Colors.red,
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(40)),
+                  child: Text(
+                    "premium",
+                    style: TextStyle(
+                        fontWeight: FontWeight.w600,
+                        fontSize: 16,
+                        color: Colors.white),
+                  ),
+                ),
+
               ],
             ),
           ),
